@@ -14,7 +14,7 @@ commonAnnotations:
 # Helm chart configuration
 helm:
   releaseName: bookinfo
-  chart: ../../bookinfo-source/bookinfo-service/charts/bookinfo
+  chart: https://github.com/akhilcheruvalat/bookinfo-source.git//bookinfo-service/charts/bookinfo
   values:
     replicaCount: 1
     image:

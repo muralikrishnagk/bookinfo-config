@@ -15,12 +15,19 @@ commonAnnotations:
   environment: prod
   argocd.argoproj.io/sync-wave: "1"
 
-# Override container resources
-helmValues:
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "400m"
-    limits:
-      memory: "1Gi"
-      cpu: "800m"
+resources:
+- ../base
+
+# Override values for prod environment
+helm:
+  values:
+    replicaCount: 3
+    image:
+      tag: prod
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 400m
+        memory: 512Mi

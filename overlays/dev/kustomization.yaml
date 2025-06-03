@@ -15,12 +15,16 @@ commonAnnotations:
   environment: dev
   argocd.argoproj.io/sync-wave: "1"
 
-# Override container resources
-helmValues:
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "200m"
-    limits:
-      memory: "512Mi"
-      cpu: "400m"
+# Override values for dev environment
+helm:
+  values:
+    replicaCount: 2
+    image:
+      tag: dev
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
