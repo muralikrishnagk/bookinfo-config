@@ -1,0 +1,26 @@
+resources:
+- ../../bookinfo-source/bookinfo-service/charts/bookinfo
+
+# Common labels for all resources
+commonLabels:
+  app: bookinfo
+  app.kubernetes.io/name: bookinfo
+  app.kubernetes.io/instance: bookinfo
+
+# Common annotations
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "0"
+
+# Helm chart configuration
+helm:
+  releaseName: bookinfo
+  chart: ../../bookinfo-source/bookinfo-service/charts/bookinfo
+  values:
+    replicaCount: 1
+    image:
+      repository: your-registry/bookinfo
+      tag: latest
+      pullPolicy: IfNotPresent
+    service:
+      type: ClusterIP
+      port: 80

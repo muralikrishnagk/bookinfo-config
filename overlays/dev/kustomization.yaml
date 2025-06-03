@@ -1,0 +1,26 @@
+resources:
+- ../../base
+
+namePrefix: dev-
+
+# Override deployment replicas
+replicas: 2
+
+# Add environment specific labels
+commonLabels:
+  environment: dev
+
+# Add environment specific annotations
+commonAnnotations:
+  environment: dev
+  argocd.argoproj.io/sync-wave: "1"
+
+# Override container resources
+helmValues:
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "200m"
+    limits:
+      memory: "512Mi"
+      cpu: "400m"
