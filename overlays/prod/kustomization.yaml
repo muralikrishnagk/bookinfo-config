@@ -1,22 +1,13 @@
 resources:
-- ../../base
+- ../base
 
-namePrefix: prod-
-
-# Override deployment replicas
-replicas: 3
-
-# Add environment specific labels
+# Common labels for all resources
 commonLabels:
-  environment: prod
-
-# Add environment specific annotations
-commonAnnotations:
+  app: bookinfo
+  app.kubernetes.io/name: bookinfo
+  app.kubernetes.io/instance: bookinfo-prod
   environment: prod
   argocd.argoproj.io/sync-wave: "1"
-
-resources:
-- ../base
 
 # Override values for prod environment
 helm:
@@ -26,8 +17,11 @@ helm:
       tag: prod
     resources:
       requests:
-        cpu: 200m
-        memory: 256Mi
+        cpu: "200m"
+        memory: "256Mi"
       limits:
-        cpu: 400m
-        memory: 512Mi
+        cpu: "400m"
+        memory: "512Mi"
+    env:
+      - name: ENVIRONMENT
+        value: "prod"

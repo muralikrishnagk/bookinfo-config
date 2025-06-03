@@ -1,6 +1,3 @@
-resources:
-- ../../bookinfo-source/bookinfo-service/charts/bookinfo
-
 # Common labels for all resources
 commonLabels:
   app: bookinfo
@@ -18,9 +15,26 @@ helm:
   values:
     replicaCount: 1
     image:
-      repository: your-registry/bookinfo
-      tag: latest
+      repository: localhost:5000/bookinfo
+      tag: "latest"
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP
-      port: 80
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
+    env:
+      - name: ENVIRONMENT
+        value: ""
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 5

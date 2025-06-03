@@ -1,19 +1,5 @@
 resources:
-- ../../base
-
-namePrefix: dev-
-
-# Override deployment replicas
-replicas: 2
-
-# Add environment specific labels
-commonLabels:
-  environment: dev
-
-# Add environment specific annotations
-commonAnnotations:
-  environment: dev
-  argocd.argoproj.io/sync-wave: "1"
+- ../base
 
 # Override values for dev environment
 helm:
@@ -23,8 +9,11 @@ helm:
       tag: dev
     resources:
       requests:
-        cpu: 100m
-        memory: 128Mi
+        cpu: "100m"
+        memory: "128Mi"
       limits:
-        cpu: 200m
-        memory: 256Mi
+        cpu: "200m"
+        memory: "256Mi"
+    env:
+      - name: ENVIRONMENT
+        value: "dev"
