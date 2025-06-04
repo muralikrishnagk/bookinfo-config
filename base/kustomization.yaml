@@ -1,3 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 # Common labels for all resources
 commonLabels:
   app: bookinfo
@@ -8,12 +11,11 @@ commonLabels:
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "0"
 
-# Modern Kustomize v4+ Helm chart integration
+# Helm chart integration using the GitHub Pages repository
 helmCharts:
-- name: bookinfo # This must match the chart's name in its Chart.yaml
-  releaseName: bookinfo # This will be the Helm release name
-  namespace: default # Namespace for the Helm release
-  version: 0.1.0 # This should match the chart's version in Chart.yaml
-  # Use the direct tarball URL for the chart from GitHub
-  repo: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
-  valuesFile: values.yaml # Path to your Helm values file within this Kustomize base
+- name: bookinfo
+  releaseName: bookinfo
+  namespace: default
+  version: 0.1.0
+  repo: https://muralikrishnagk.github.io/bookinfo-charts
+  valuesFile: values.yaml

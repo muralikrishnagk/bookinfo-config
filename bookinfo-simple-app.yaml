@@ -1,23 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bookinfo # You can rename this if you want a new app, e.g., bookinfo-kustomize
+  name: bookinfo
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-options: Prune=true # Good practice
+    argocd.argoproj.io/sync-options: Prune=true
 spec:
   project: default
   source:
-    repoURL: https://github.com/muralikrishnagk/bookinfo-config.git # Updated repo URL
+    repoURL: https://github.com/muralikrishnagk/bookinfo-config.git # Your config repo
     targetRevision: HEAD # Or your specific branch/tag
     path: overlays/dev # Path to your Kustomize overlay
     kustomize:
-      # Kustomize image override for the dev environment
+      # Kustomize image override is already in overlays/dev/kustomization.yaml
+      # but specifying it here ensures ArgoCD UI reflects it clearly
+      # and can be used if the overlay didnt have it.
       images:
         - localhost:5000/bookinfo:dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: default # Target namespace for deployed resources
   syncPolicy:
     automated:
       prune: true
