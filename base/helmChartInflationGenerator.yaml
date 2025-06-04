@@ -2,34 +2,14 @@ apiVersion: builtin
 kind: HelmChartInflationGenerator
 metadata:
   name: bookinfo-base-generator
-helmArgs:
-  chartName: bookinfo
-  # Use the direct tarball URL for the chart from GitHub
-  chartRepoUrl: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
-  chartVersion: 0.1.0 # Ensure this matches the chart version
-  releaseName: bookinfo
-# Values from your base/values.yaml
-values:
-  replicaCount: 1
-  image:
-    repository: localhost:5000/bookinfo
-    tag: "latest"
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "128Mi"
-    limits:
-      cpu: "200m"
-      memory: "256Mi"
-  env:
-    - name: ENVIRONMENT
-      value: ""
-  livenessProbe:
-    initialDelaySeconds: 30
-    periodSeconds: 10
-  readinessProbe:
-    initialDelaySeconds: 5
-    periodSeconds: 5
+  namespace: default # This is for the generator config object itself
+
+# Helm Chart Properties (top-level)
+chartName: bookinfo
+releaseName: bookinfo
+# Use the direct tarball URL for the chart from GitHub
+chartRepoUrl: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
+chartVersion: 0.1.0 # Ensure this matches the chart version
+
+# Refer to your existing base values file
+valuesFile: values.yaml
