@@ -1,0 +1,30 @@
+apiVersion: builtin
+kind: HelmChartInflationGenerator
+metadata:
+  name: bookinfo
+chartName: bookinfo
+chartRepoUrl: file://../../../bookinfo-source/bookinfo-service/charts
+chartVersion: 0.1.0
+releaseName: bookinfo
+values:
+  replicaCount: 2
+  image:
+    repository: localhost:5000/bookinfo
+    tag: dev
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+  env:
+    - name: ENVIRONMENT
+      value: "dev"
+  livenessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  readinessProbe:
+    initialDelaySeconds: 5
+    periodSeconds: 5

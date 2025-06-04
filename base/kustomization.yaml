@@ -8,33 +8,7 @@ commonLabels:
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "0"
 
-# Helm chart configuration
-helm:
-  releaseName: bookinfo
-  chart: https://github.com/akhilcheruvalat/bookinfo-source.git//bookinfo-service/charts/bookinfo
-  values:
-    replicaCount: 1
-    image:
-      repository: localhost:5000/bookinfo
-      tag: "latest"
-      pullPolicy: IfNotPresent
-    service:
-      type: ClusterIP
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "128Mi"
-      limits:
-        cpu: "200m"
-        memory: "256Mi"
-    env:
-      - name: ENVIRONMENT
-        value: ""
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 30
-      periodSeconds: 10
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 5
+# Using HelmChartInflationGenerator for Helm integration
+# Ensure Kustomize v3.2.0+ and --enable-helm flag for ArgoCD or kustomize build
+generators:
+- helmChartInflationGenerator.yaml

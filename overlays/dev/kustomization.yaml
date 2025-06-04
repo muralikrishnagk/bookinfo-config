@@ -1,19 +1,11 @@
 resources:
-- ../base
+- ../../base
 
-# Override values for dev environment
-helm:
-  values:
-    replicaCount: 2
-    image:
-      tag: dev
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "128Mi"
-      limits:
-        cpu: "200m"
-        memory: "256Mi"
-    env:
-      - name: ENVIRONMENT
-        value: "dev"
+# Dev-specific patches for the base resources
+patchesStrategicMerge:
+- deployment-patch.yaml
+
+# ArgoCD image override to ensure dev image is used
+images:
+- name: localhost:5000/bookinfo
+  newTag: dev
