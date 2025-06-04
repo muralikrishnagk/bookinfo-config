@@ -2,11 +2,12 @@ apiVersion: builtin
 kind: HelmChartInflationGenerator
 metadata:
   name: bookinfo-base-generator
-chartName: bookinfo
-# Use the direct tarball URL for the chart from GitHub
-chartRepoUrl: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
-chartVersion: 0.1.0 # Ensure this matches the chart version
-releaseName: bookinfo
+helmArgs:
+  chartName: bookinfo
+  # Use the direct tarball URL for the chart from GitHub
+  chartRepoUrl: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
+  chartVersion: 0.1.0 # Ensure this matches the chart version
+  releaseName: bookinfo
 # Values from your base/values.yaml
 values:
   replicaCount: 1

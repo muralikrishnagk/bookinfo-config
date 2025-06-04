@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    argocd.argoproj.io/helm-chart: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
+    argocd.argoproj.io/sync-wave: "0"
+  labels:
+    app: bookinfo
+    app.kubernetes.io/instance: bookinfo
+    app.kubernetes.io/name: bookinfo
+  name: bookinfo-bookinfo
+spec:
+  ports:
+  - name: http
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: bookinfo
+    app.kubernetes.io/instance: bookinfo
+    app.kubernetes.io/name: bookinfo
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/helm-chart: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
+    argocd.argoproj.io/sync-wave: "0"
+  labels:
+    app: bookinfo
+    app.kubernetes.io/instance: bookinfo
+    app.kubernetes.io/name: bookinfo
+  name: bookinfo-bookinfo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bookinfo
+      app.kubernetes.io/instance: bookinfo
+      app.kubernetes.io/name: bookinfo
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/helm-chart: https://github.com/akhilcheruvalat/bookinfo-source/raw/main/bookinfo-service/charts/bookinfo-0.1.0.tgz
+        argocd.argoproj.io/sync-wave: "0"
+      labels:
+        app: bookinfo
+        app.kubernetes.io/instance: bookinfo
+        app.kubernetes.io/name: bookinfo
+    spec:
+      containers:
+      - env:
+        - name: PORT
+          value: "9090"
+        - name: ENVIRONMENT
+          value: dev
+        image: localhost:5000/bookinfo:dev
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        name: bookinfo
+        ports:
+        - containerPort: 9090
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
