@@ -1,13 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-labels:
-- pairs:
-    app: bookinfo # General app label, will be applied to pod templates
-  includeSelectors: false # Default, but explicit: Do not force this into selectors
-  includeTemplates: true  # Default, but explicit: Add to pod templates
-# We will let the Helm chart define app.kubernetes.io/name and app.kubernetes.io/instance
-# for its selectors and pod templates.
 
 # Common annotations
 commonAnnotations:
