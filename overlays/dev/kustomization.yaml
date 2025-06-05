@@ -14,3 +14,7 @@ images:
 - name: localhost:5000/bookinfo # This should match the repository in base/values.yaml or the charts default
   newName: localhost:5000/bookinfo # Usually the same unless changing registry
   newTag: dev
+
+- name: localhost:5000/bookinfo-processor # This should match the repository in the processor's chart values
+  newName: localhost:5000/bookinfo-processor
+  newTag: dev
