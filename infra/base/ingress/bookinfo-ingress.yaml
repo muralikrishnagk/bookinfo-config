@@ -4,6 +4,7 @@ metadata:
   name: bookinfo-ingress
   namespace: default # Assuming your services are in the 'default' namespace
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
     # Add any Ingress controller specific annotations here if needed
     # For NGINX Ingress:
     # nginx.ingress.kubernetes.io/rewrite-target: /
