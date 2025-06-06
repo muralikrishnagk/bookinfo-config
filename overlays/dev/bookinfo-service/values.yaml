@@ -1,6 +1,6 @@
 replicaCount: 2
 image:
-  repository: localhost:5000/bookinfo
+  repository: localhost:5000/bookinfo-service
   tag: "dev"
   pullPolicy: IfNotPresent
 service:

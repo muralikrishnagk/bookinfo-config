@@ -8,12 +8,12 @@ commonAnnotations:
 
 # Helm chart integration using the GitHub Pages repository
 helmCharts:
-- name: bookinfo
-  releaseName: bookinfo
+- name: bookinfo-service
+  releaseName: bookinfo-service
   namespace: default
-  version: 0.1.0
+  version: 0.1.0 # Ensure this matches the chart version in your repo
   repo: https://muralikrishnagk.github.io/bookinfo-charts
-  valuesFile: values.yaml
+  # No valuesFile here, relies on chart defaults or overlay overrides
 
 - name: bookinfo-processor # This must match the chart's name in its Chart.yaml
   releaseName: bookinfo-processor # This will be the Helm release name
