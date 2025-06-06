@@ -6,7 +6,7 @@ resources:
 
 helmCharts:
 - name: bookinfo-service
-  releaseName: bookinfo-service
+  releaseName: bookinfo-service-dev
   namespace: default
   version: 0.1.0 # Ensure this matches the chart version
   repo: https://muralikrishnagk.github.io/bookinfo-charts
