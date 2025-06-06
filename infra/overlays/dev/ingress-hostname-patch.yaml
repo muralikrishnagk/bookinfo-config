@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bookinfo-ingress # This must match the name of the Ingress in the base
+  namespace: default    # And its namespace
+spec:
+  rules:
+  - host: bookinfo.dev.local # Your dev-specific hostname
+    http:
+      paths:
+      - path: /service
+        pathType: Prefix
+        backend:
+          service:
+            name: bookinfo-service-bookinfo-service
+            port:
+              number: 9090
+      - path: /processor
+        pathType: Prefix
+        backend:
+          service:
+            name: bookinfo-processor-bookinfo-processor
+            port:
+              number: 9090
+  # If you want to use TLS for this dev host (requires cert-manager or manual cert)
+  # tls:
+  # - hosts:
+  #   - bookinfo.dev.local
+  #   secretName: bookinfo-dev-local-tls # A secret containing the TLS cert for bookinfo.dev.local

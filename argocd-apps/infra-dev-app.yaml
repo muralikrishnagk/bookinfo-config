@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-dev
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/muralikrishnagk/bookinfo-config.git
+    targetRevision: HEAD
+    path: infra/overlays/dev # Points to your dev infrastructure overlay
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default # Deploy Ingress into the 'default' namespace (or where your services are)
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true # Though 'default' namespace usually exists

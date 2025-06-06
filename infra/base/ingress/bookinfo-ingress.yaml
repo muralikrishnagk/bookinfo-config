@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bookinfo-ingress
+  namespace: default # Assuming your services are in the 'default' namespace
+  annotations:
+    # Add any Ingress controller specific annotations here if needed
+    # For NGINX Ingress:
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    # For Traefik (often doesn't need rewrite for simple path prefixes):
+    # traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /service
+        pathType: Prefix
+        backend:
+          service:
+            name: bookinfo-service-bookinfo-service # Matches the K8s Service name
+            port:
+              number: 9090 # Matches the Service port
+      - path: /processor
+        pathType: Prefix
+        backend:
+          service:
+            name: bookinfo-processor-bookinfo-processor # Matches the K8s Service name
+            port:
+              number: 9090 # Matches the Service port
