@@ -5,21 +5,3 @@ kind: Kustomization
 # Common annotations
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "0"
-
-# Helm chart integration using the GitHub Pages repository
-helmCharts:
-- name: bookinfo-service
-  releaseName: bookinfo-service
-  namespace: default
-  version: 0.1.0 # Ensure this matches the chart version in your repo
-  repo: https://muralikrishnagk.github.io/bookinfo-charts
-  # No valuesFile here, relies on chart defaults or overlay overrides
-
-- name: bookinfo-processor # This must match the chart's name in its Chart.yaml
-  releaseName: bookinfo-processor # This will be the Helm release name
-  namespace: default # Namespace for the Helm release
-  version: 0.1.0 # This should match the chart's version in Chart.yaml
-  repo: https://muralikrishnagk.github.io/bookinfo-charts # Your GitHub Pages Helm repo
-  # If bookinfo-processor needs its own specific base values, create a values-processor.yaml
-  # and reference it here. For now, assuming it can use the common values.yaml or chart defaults.
-  # valuesFile: values-processor.yaml 
