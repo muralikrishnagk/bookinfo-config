@@ -13,7 +13,7 @@ helmCharts:
   valuesFile: bookinfo-service/values.yaml # Relative to this kustomization.yaml
 
 - name: bookinfo-processor
-  releaseName: bookinfo-processor
+  releaseName: bookinfo-processor-dev
   namespace: default
   version: 0.1.0 # Ensure this matches the chart version
   repo: https://muralikrishnagk.github.io/bookinfo-charts
