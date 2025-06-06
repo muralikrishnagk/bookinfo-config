@@ -9,8 +9,8 @@ metadata:
     # nginx.ingress.kubernetes.io/rewrite-target: /
     # For Traefik (often doesn't need rewrite for simple path prefixes):
     # traefik.ingress.kubernetes.io/router.entrypoints: web
-  ingressClassName: nginx
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
