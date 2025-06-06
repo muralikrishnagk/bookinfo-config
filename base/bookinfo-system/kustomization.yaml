@@ -6,17 +6,4 @@ kind: Kustomization
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "0"
 
-helmCharts:
-- name: bookinfo-service
-  releaseName: bookinfo-service
-  namespace: default
-  version: 0.1.0 # Ensure this matches the chart version
-  repo: https://muralikrishnagk.github.io/bookinfo-charts
-  # No valuesFile, relies on chart defaults
 
-- name: bookinfo-processor
-  releaseName: bookinfo-processor
-  namespace: default
-  version: 0.1.0 # Ensure this matches the chart version
-  repo: https://muralikrishnagk.github.io/bookinfo-charts
-  # No valuesFile, relies on chart defaults
