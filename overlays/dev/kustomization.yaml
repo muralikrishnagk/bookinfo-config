@@ -2,34 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- ../../base  # References the base kustomization
-
-# Dev-specific patches for the base resources
-# Ensure deployment-patch.yaml exists if you need it
-# patchesStrategicMerge:
-# - deployment-patch.yaml
-
-# ArgoCD image override to ensure dev image is used
-helmCharts:
-- name: bookinfo-service
-  releaseName: bookinfo-service # Or specific for dev like bookinfo-service-dev
-  namespace: default
-  version: 0.1.0 # Ensure this matches the chart version in your repo
-  repo: https://muralikrishnagk.github.io/bookinfo-charts
-  valuesFile: bookinfo-service/values.yaml # This will use overlays/dev/bookinfo-service/values.yaml
-
-- name: bookinfo-processor
-  releaseName: bookinfo-processor
-  namespace: default
-  version: 0.1.0 # Ensure this matches the chart version in your repo
-  repo: https://muralikrishnagk.github.io/bookinfo-charts
-  # No valuesFile, will use chart defaults as base/values.yaml was deleted
-
-images:
-- name: localhost:5000/bookinfo-service # This should match the repository in base/values.yaml or the charts default
-  newName: localhost:5000/bookinfo-service # Usually the same unless changing registry
-  newTag: dev
-
-- name: localhost:5000/bookinfo-processor # This should match the repository in the processor's chart values
-  newName: localhost:5000/bookinfo-processor
-  newTag: dev
+- ../../base/bookinfo-system  # References the base kustomization

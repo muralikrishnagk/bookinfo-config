@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/muralikrishnagk/bookinfo-config.git # Your config repo
     targetRevision: HEAD # Or your specific branch/tag
-    path: overlays/dev # Path to your Kustomize overlay
+    path: overlays/dev/bookinfo-system # Path to your Kustomize overlay
     kustomize:
       # Kustomize image override is already in overlays/dev/kustomization.yaml
       # but specifying it here ensures ArgoCD UI reflects it clearly
