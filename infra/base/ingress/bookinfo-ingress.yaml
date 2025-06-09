@@ -20,13 +20,13 @@ spec:
         pathType: Prefix # Basic path type for prefix matching
         backend:
           service:
-            name: bookinfo-service-bookinfo-service.default
+            name: bookinfo-service-bookinfo-service
             port:
               number: 80
       - path: /processor
         pathType: Prefix # Basic path type for prefix matching
         backend:
           service:
-            name: bookinfo-processor-bookinfo-processor.default
+            name: bookinfo-processor-bookinfo-processor
             port:
               number: 80
