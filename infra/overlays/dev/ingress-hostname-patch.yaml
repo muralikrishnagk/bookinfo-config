@@ -14,14 +14,14 @@ spec:
           service:
             name: bookinfo-service-bookinfo-service
             port:
-              number: 9090
+              number: 80
       - path: /processor
         pathType: Prefix
         backend:
           service:
             name: bookinfo-processor-bookinfo-processor
             port:
-              number: 9090
+              number: 80
   # If you want to use TLS for this dev host (requires cert-manager or manual cert)
   # tls:
   # - hosts:
