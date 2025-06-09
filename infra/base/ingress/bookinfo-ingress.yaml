@@ -22,11 +22,11 @@ spec:
           service:
             name: bookinfo-service-bookinfo-service.default
             port:
-              number: 9090
+              number: 80
       - path: /processor
         pathType: Prefix # Basic path type for prefix matching
         backend:
           service:
             name: bookinfo-processor-bookinfo-processor.default
             port:
-              number: 9090
+              number: 80
