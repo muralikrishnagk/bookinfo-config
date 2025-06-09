@@ -5,6 +5,10 @@ metadata:
   namespace: default # Assuming your services are in the 'default' namespace
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-next-upstream: "error timeout http_500 http_502 http_503 http_504"
     # Add any Ingress controller specific annotations here if needed
     # For NGINX Ingress:
     # nginx.ingress.kubernetes.io/rewrite-target: /
