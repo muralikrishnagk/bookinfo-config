@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookinfo-service-bookinfo-service # This must match the Helm release name + chart name
+spec:
+  template:
+    spec:
+      containers:
+      - name: bookinfo-service # This must match the container name in the Helm chart's deployment template
+        imagePullPolicy: Always

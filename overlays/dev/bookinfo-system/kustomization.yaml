@@ -26,3 +26,13 @@ images:
 - name: localhost:5000/bookinfo-processor
   newName: localhost:5000/bookinfo-processor
   newTag: dev
+
+patches:
+- path: bookinfo-service-deployment-patch.yaml
+  target:
+    kind: Deployment
+    name: bookinfo-service-bookinfo-service # Must match the Helm release name + chart name
+- path: bookinfo-processor-deployment-patch.yaml
+  target:
+    kind: Deployment
+    name: bookinfo-processor-bookinfo-processor # Must match the Helm release name + chart name
