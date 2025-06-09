@@ -8,15 +8,15 @@ spec:
   - host: bookinfo.dev.local # Your dev-specific hostname
     http:
       paths:
-      - path: /service
-        pathType: Prefix
+      - path: /service(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: bookinfo-service-bookinfo-service
             port:
               number: 80
-      - path: /processor
-        pathType: Prefix
+      - path: /processor(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: bookinfo-processor-bookinfo-processor
