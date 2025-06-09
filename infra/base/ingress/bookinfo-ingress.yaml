@@ -4,8 +4,7 @@ metadata:
   name: bookinfo-ingress
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1 # Use $1 for the first capture group from the path
+    nginx.ingress.kubernetes.io/rewrite-target: / # Basic rewrite to strip prefix
     # The proxy timeout annotations from before can be useful, let's keep them
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
@@ -17,15 +16,15 @@ spec:
   - host: bookinfo.dev.local
     http:
       paths:
-      - path: /service/(.*) # Path with capture group
-        pathType: ImplementationSpecific # Required for regex paths
+      - path: /service
+        pathType: Prefix # Basic path type for prefix matching
         backend:
           service:
             name: bookinfo-service-bookinfo-service
             port:
               number: 9090
-      - path: /processor/(.*) # Path with capture group
-        pathType: ImplementationSpecific # Required for regex paths
+      - path: /processor
+        pathType: Prefix # Basic path type for prefix matching
         backend:
           service:
             name: bookinfo-processor-bookinfo-processor
