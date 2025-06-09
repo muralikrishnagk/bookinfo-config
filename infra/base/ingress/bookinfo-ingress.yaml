@@ -17,14 +17,14 @@ spec:
     http:
       paths:
       - path: /service(/|$)(.*)
-        pathType: Prefix # PathType Prefix is often used with regex-like paths for NGINX
+        pathType: ImplementationSpecific
         backend:
           service:
             name: bookinfo-service-bookinfo-service
             port:
               number: 80
       - path: /processor(/|$)(.*)
-        pathType: Prefix # PathType Prefix is often used with regex-like paths for NGINX
+        pathType: ImplementationSpecific
         backend:
           service:
             name: bookinfo-processor-bookinfo-processor
