@@ -12,4 +12,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/rules/0/host
-        value: bookinfo.dev.local
+        value: bookinfo.dev.fail
