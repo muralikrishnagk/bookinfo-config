@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: bookinfo.dev.local
+  - host: bookinfo.example.com # Patched by overlay
     http:
       paths:
       - path: /service(/|$)(.*)
