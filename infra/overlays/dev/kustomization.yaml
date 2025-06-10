@@ -12,4 +12,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/rules/0/host
-        value: bookinfo.dev.fail
+        value: bookinfo.dev.local
+      - op: replace
+        path: /metadata/name
+        value: bookinfo-dev-ingress

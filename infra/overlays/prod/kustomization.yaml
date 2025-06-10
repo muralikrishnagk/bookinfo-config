@@ -12,3 +12,6 @@ patches:
       - op: replace
         path: /spec/rules/0/host
         value: bookinfo.prod.local # Prod-specific hostname
+      - op: replace
+        path: /metadata/name
+        value: bookinfo-prod-ingress
