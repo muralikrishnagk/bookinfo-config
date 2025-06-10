@@ -22,6 +22,8 @@ service:
 #     memory: 128Mi
 
 env:
-  PORT: "9090"
-  ENVIRONMENT: "prod"
+  - name: PORT
+    value: "9090"
+  - name: ENVIRONMENT
+    value: "prod"
   # Add other prod-specific environment variables here
