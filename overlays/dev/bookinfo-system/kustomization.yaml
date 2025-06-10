@@ -8,14 +8,14 @@ helmCharts:
 - name: bookinfo-service
   releaseName: bookinfo-service
   namespace: default
-  version: 0.1.1 # Ensure this matches the chart version
+  version: 0.1.2 # Ensure this matches the chart version
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: bookinfo-service/values.yaml # Relative to this kustomization.yaml
 
 - name: bookinfo-processor
   releaseName: bookinfo-processor
   namespace: default
-  version: 0.1.1 # Ensure this matches the chart version
+  version: 0.1.2 # Ensure this matches the chart version
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: bookinfo-processor/values.yaml # Relative to this kustomization.yaml
 

@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bookinfo-apps
+  namespace: argocd # ApplicationSet resource itself lives in argocd namespace
+spec:
+  generators:
+  - list:
+      elements:
+      # Dev Environment
+      - env: dev
+        component: infra
+        path: infra/overlays/dev
+        destinationNamespace: bookinfo-system-dev
+      - env: dev
+        component: bookinfo-system
+        path: overlays/dev/bookinfo-system
+        destinationNamespace: bookinfo-system-dev
+      # Prod Environment
+      - env: prod
+        component: infra
+        path: infra/overlays/prod
+        destinationNamespace: bookinfo-system-prod
+      - env: prod
+        component: bookinfo-system
+        path: overlays/prod/bookinfo-system
+        destinationNamespace: bookinfo-system-prod
+  template:
+    metadata:
+      name: '{{component}}-{{env}}' # e.g., infra-dev, bookinfo-system-prod
+      namespace: argocd # Child Applications will be created in ArgoCD's namespace
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default # Or your specific ArgoCD project
+      source:
+        repoURL: https://github.com/muralikrishnagk/bookinfo-config.git
+        targetRevision: HEAD
+        path: '{{path}}' # Dynamically set from the generator
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{destinationNamespace}}' # Dynamically set from the generator
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true # Ensures destinationNamespace is created if it doesn't exist
+          # - ServerSideApply=true # Consider for newer Kubernetes versions / CRDs

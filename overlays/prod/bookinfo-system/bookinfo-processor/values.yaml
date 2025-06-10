@@ -1,0 +1,27 @@
+# Production values for bookinfo-processor
+# replicaCount: 3
+
+image:
+  repository: localhost:5000/bookinfo-processor
+  tag: prod # Placeholder: Use a stable prod tag, e.g., v1.0.0
+  pullPolicy: IfNotPresent # Or Always if using 'latest' or frequently changing tags
+
+service:
+  type: ClusterIP # Assuming type might still vary or want to be explicit
+  # port: 80 is now inherited from the chart's default values.yaml
+
+# ingress: # Ingress is handled by the separate infra component
+#   enabled: false
+
+# resources:
+#   limits:
+#     cpu: 200m
+#     memory: 256Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+
+env:
+  PORT: "9090"
+  ENVIRONMENT: "prod"
+  # Add other prod-specific environment variables here

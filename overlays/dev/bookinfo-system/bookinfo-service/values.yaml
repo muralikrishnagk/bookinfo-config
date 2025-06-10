@@ -4,7 +4,8 @@ image:
   tag: "dev"
   pullPolicy: IfNotPresent
 service:
-  type: ClusterIP
+  type: ClusterIP # Assuming type might still vary or want to be explicit
+  # port: 80 is now inherited from the chart's default values.yaml
 resources:
   requests:
     cpu: "100m"
