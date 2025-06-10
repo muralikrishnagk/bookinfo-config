@@ -5,7 +5,23 @@ metadata:
   namespace: default    # And its namespace
 spec:
   rules:
-  - host: bookinfo.dev.local # Patches the hostname from base
+  - host: bookinfo.dev.local # Your dev-specific hostname
+    http:
+      paths:
+      - path: /service(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: bookinfo-service-bookinfo-service
+            port:
+              number: 80
+      - path: /processor(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: bookinfo-processor-bookinfo-processor
+            port:
+              number: 80
   # If you want to use TLS for this dev host (requires cert-manager or manual cert)
   # tls:
   # - hosts:
