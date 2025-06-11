@@ -21,10 +21,10 @@ helmCharts:
 images:
 - name: localhost:5000/bookinfo-service # Original image name from chart
   newName: localhost:5000/bookinfo-service
-  newTag: v1.0.0 # Specific production tag
+  newTag: v1.0.1 # Specific production tag
 - name: localhost:5000/bookinfo-processor
   newName: localhost:5000/bookinfo-processor
-  newTag: v1.0.0 # Specific production tag
+  newTag: v1.0.1 # Specific production tag
 
 # Example: Patches for production (e.g., replica count, resources)
 # patches:
