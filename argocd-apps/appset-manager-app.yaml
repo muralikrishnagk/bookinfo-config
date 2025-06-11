@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-appset-manager # Name of this ArgoCD Application
+  namespace: argocd # This Application resource itself lives in the argocd namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default # Or your specific ArgoCD project
+
+  source:
+    repoURL: https://github.com/muralikrishnagk/bookinfo-config.git # Your Git repo
+    targetRevision: HEAD
+    path: argocd-apps # Path to the directory containing bookinfo-applicationset.yaml
+
+  destination:
+    server: https://kubernetes.default.svc # Deploy to the same cluster where ArgoCD is running
+    namespace: argocd # The ApplicationSet resource should be created in the argocd namespace
+
+  syncPolicy:
+    automated:
+      prune: true    # Optional: Automatically delete resources that are no longer in Git
+      selfHeal: true # Optional: Automatically sync if the live state drifts from Git
+    syncOptions:
+      - CreateNamespace=true # Should not be needed if deploying to 'argocd' ns
+      # - ApplyOutOfSyncOnly=true # Useful for preventing sync storms if manifests are frequently changing
