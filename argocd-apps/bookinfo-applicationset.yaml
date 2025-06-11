@@ -16,6 +16,15 @@ spec:
         component: bookinfo-system
         path: overlays/dev/bookinfo-system
         destinationNamespace: bookinfo-system-dev
+      # QA Environment
+      - env: qa
+        component: infra
+        path: infra/overlays/qa
+        destinationNamespace: bookinfo-system-qa
+      - env: qa
+        component: bookinfo-system
+        path: overlays/qa/bookinfo-system
+        destinationNamespace: bookinfo-system-qa
       # Prod Environment
       - env: prod
         component: infra

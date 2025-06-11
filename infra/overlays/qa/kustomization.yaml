@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base # Inherits from infra/base
+patches:
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: bookinfo-ingress # Matches the name in infra/base/ingress/bookinfo-ingress.yaml
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: bookinfo.qa.local # QA-specific hostname
+      - op: replace
+        path: /metadata/name
+        value: bookinfo-qa-ingress

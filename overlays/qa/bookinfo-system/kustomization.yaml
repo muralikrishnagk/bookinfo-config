@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# If you have a base kustomization for all bookinfo-system environments
+# resources:
+# - ../../../base/bookinfo-system
+
+helmCharts:
+- name: bookinfo-service
+  releaseName: bookinfo-service
+  version: 0.1.2 # Ensure this matches the chart version for QA
+  repo: https://muralikrishnagk.github.io/bookinfo-charts
+  valuesFile: ./bookinfo-service/values.yaml # QA-specific values
+
+- name: bookinfo-processor
+  releaseName: bookinfo-processor
+  version: 0.1.2 # Ensure this matches the chart version for QA
+  repo: https://muralikrishnagk.github.io/bookinfo-charts
+  valuesFile: ./bookinfo-processor/values.yaml # QA-specific values
+
+images:
+- name: localhost:5000/bookinfo-service # Original image name from chart
+  newName: localhost:5000/bookinfo-service
+  newTag: qa
+- name: localhost:5000/bookinfo-processor
+  newName: localhost:5000/bookinfo-processor
+  newTag: qa
