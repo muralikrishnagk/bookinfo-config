@@ -21,7 +21,7 @@ helmCharts:
 images:
 - name: localhost:5000/bookinfo-service # Original image name from chart
   newName: localhost:5000/bookinfo-service
-  newTag: qa
+  newTag: v1.0.2-rc1
 - name: localhost:5000/bookinfo-processor
   newName: localhost:5000/bookinfo-processor
-  newTag: qa
+  newTag: v1.0.2-rc1
