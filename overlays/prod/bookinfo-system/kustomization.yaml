@@ -18,13 +18,6 @@ helmCharts:
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: bookinfo-processor/values.yaml # Prod-specific values
 
-images:
-- name: localhost:5000/bookinfo-service # Original image name from chart
-  newName: localhost:5000/bookinfo-service
-  newTag: v1.0.2 # Specific production tag
-- name: localhost:5000/bookinfo-processor
-  newName: localhost:5000/bookinfo-processor
-  newTag: v1.0.2 # Specific production tag
 
 # Example: Patches for production (e.g., replica count, resources)
 # patches:
