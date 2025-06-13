@@ -19,12 +19,5 @@ helmCharts:
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: bookinfo-processor/values.yaml # Relative to this kustomization.yaml
 
-images:
-- name: localhost:5000/bookinfo-service
-  newName: localhost:5000/bookinfo-service
-  newTag: dev
-- name: localhost:5000/bookinfo-processor
-  newName: localhost:5000/bookinfo-processor
-  newTag: dev
 
 # Patches for imagePullPolicy were here, but now handled by Helm values.

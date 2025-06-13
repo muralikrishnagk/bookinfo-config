@@ -3,7 +3,7 @@ replicaCount: 2
 
 image:
   repository: localhost:5000/bookinfo-processor
-  tag: qa # Will be overridden by Kustomize to 'qa' but good for clarity
+  tag: v1.0.2-rc1
   pullPolicy: IfNotPresent
 
 service:
