@@ -7,52 +7,75 @@ spec:
   generators:
   - list:
       elements:
-      # Dev Environment
-      - env: dev
-        component: infra
-        path: infra/overlays/dev
-        destinationNamespace: bookinfo-system-dev
-      - env: dev
-        component: bookinfo-system
-        path: overlays/dev/bookinfo-system
-        destinationNamespace: bookinfo-system-dev
-      # QA Environment
-      - env: qa
-        component: infra
-        path: infra/overlays/qa
-        destinationNamespace: bookinfo-system-qa
-      - env: qa
-        component: bookinfo-system
-        path: overlays/qa/bookinfo-system
-        destinationNamespace: bookinfo-system-qa
-      # Prod Environment
-      - env: prod
-        component: infra
-        path: infra/overlays/prod
-        destinationNamespace: bookinfo-system-prod
-      - env: prod
-        component: bookinfo-system
-        path: overlays/prod/bookinfo-system
-        destinationNamespace: bookinfo-system-prod
+        # Dev Environment
+        - env: dev
+          component: infra
+          path: infra/overlays/dev
+          destinationNamespace: bookinfo-dev # Using simpler namespace for dev infra
+          # server: 'https://dev-cluster.example.com' # Example: if dev has a specific cluster
+        - env: dev
+          component: bookinfo-system
+          path: overlays/dev/bookinfo-system
+          destinationNamespace: bookinfo-dev
+          # server: 'https://dev-cluster.example.com'
+        # QA Environment
+        - env: qa
+          component: infra
+          path: infra/overlays/qa
+          destinationNamespace: bookinfo-qa
+          # server: 'https://qa-cluster.example.com'
+        - env: qa
+          component: bookinfo-system
+          path: overlays/qa/bookinfo-system
+          destinationNamespace: bookinfo-qa
+          # server: 'https://qa-cluster.example.com'
+        # Prod Environment
+        - env: prod
+          component: infra
+          path: infra/overlays/prod
+          destinationNamespace: bookinfo-prod
+          # server: 'https://prod-cluster.example.com'
+        - env: prod
+          component: bookinfo-system
+          path: overlays/prod/bookinfo-system
+          destinationNamespace: bookinfo-prod
+          # server: 'https://prod-cluster.example.com'
+
   template:
     metadata:
-      name: '{{component}}-{{env}}' # e.g., infra-dev, bookinfo-system-prod
-      namespace: argocd # Child Applications will be created in ArgoCD's namespace
+      # Generated Application name will be '{{component}}-{{env}}', e.g., 'infra-dev' or 'bookinfo-system-prod'
+      name: '{{component}}-{{env}}'
+      # ArgoCD Applications themselves are created in the argocd namespace
+      namespace: argocd 
       finalizers:
         - resources-finalizer.argocd.argoproj.io
+      labels:
+        appset-generated-by: bookinfo-apps
+        environment: '{{env}}'
+        component: '{{component}}'
     spec:
       project: default # Or your specific ArgoCD project
+
       source:
-        repoURL: https://github.com/muralikrishnagk/bookinfo-config.git
-        targetRevision: HEAD
-        path: '{{path}}' # Dynamically set from the generator
+        repoURL: 'https://github.com/muralikrishnagk/bookinfo-config.git'
+        targetRevision: main # Or HEAD, or a specific branch/tag
+        path: '{{path}}' # Dynamically set from the generator's 'path' field
+
+        kustomize:
+          # Kustomize build options applied to all generated Applications
+          buildOptions: --enable-helm --load-restrictor LoadRestrictionsNone
+          # version: v4.5.7 # Optionally specify a Kustomize version if needed by ArgoCD
+
       destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{destinationNamespace}}' # Dynamically set from the generator
+        # server: '{{server | default "https://kubernetes.default.svc"}}' # Parameterize server or use default
+        server: 'https://kubernetes.default.svc' # Assuming same cluster for now
+        # Target namespace for the application's resources, from generator's 'destinationNamespace'
+        namespace: '{{destinationNamespace}}'
+
+      # Sync policy for the generated Applications
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
-          - CreateNamespace=true # Ensures destinationNamespace is created if it doesn't exist
-          # - ServerSideApply=true # Consider for newer Kubernetes versions / CRDs
+          - CreateNamespace=true
