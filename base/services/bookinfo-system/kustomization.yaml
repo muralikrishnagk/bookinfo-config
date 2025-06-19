@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Common annotations to be applied to all resources
+# managed by Kustomizations that include this base.
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "0" # Example common annotation
+
+# If you have raw Kubernetes manifests that are common to all environments
+# for the bookinfo-system (e.g., a shared ConfigMap, a base Namespace definition
+# if not handled by overlays), you could list them here. For example:
+# resources:
+#   - namespace.yaml
+#   - shared-configmap.yaml

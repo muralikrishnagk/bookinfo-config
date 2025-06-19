@@ -1,23 +1,29 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: bookinfo-dev # Global namespace for this overlay
+
 resources:
-- ../../../base/bookinfo-system  # Inherits commonAnnotations
+  - ../../../base/services/bookinfo-system  # For commonAnnotations
 
 helmCharts:
 - name: bookinfo-service
   releaseName: bookinfo-service
-  namespace: default
+  namespace: bookinfo-dev # Or remove to inherit from global
   version: 0.1.2 # Ensure this matches the chart version
   repo: https://muralikrishnagk.github.io/bookinfo-charts
-  valuesFile: bookinfo-service/values.yaml # Relative to this kustomization.yaml
+  valuesFile: ../../../base/services/global-values.yaml # Global defaults
+  additionalValuesFiles:
+    - bookinfo-service/values.yaml # Dev-specific overrides
 
 - name: bookinfo-processor
   releaseName: bookinfo-processor
-  namespace: default
+  namespace: bookinfo-dev # Or remove to inherit from global
   version: 0.1.2 # Ensure this matches the chart version
   repo: https://muralikrishnagk.github.io/bookinfo-charts
-  valuesFile: bookinfo-processor/values.yaml # Relative to this kustomization.yaml
+  valuesFile: ../../../base/services/global-values.yaml # Global defaults
+  additionalValuesFiles:
+    - bookinfo-processor/values.yaml # Dev-specific overrides
 
 
 # Patches for imagePullPolicy were here, but now handled by Helm values.

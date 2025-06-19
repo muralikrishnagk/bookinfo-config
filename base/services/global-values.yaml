@@ -1,0 +1,33 @@
+# Global default values for bookinfo charts
+# These can be overridden by environment-specific values files.
+
+
+
+image:
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: "200m"      # Default CPU limit
+    memory: "256Mi"  # Default Memory limit
+  requests:
+    cpu: "100m"      # Default CPU request
+    memory: "128Mi"  # Default Memory request
+
+# Example: Common service settings (if applicable to both charts)
+# service:
+#   type: ClusterIP
+#   port: 80
+
+# Example: Default liveness/readiness probe settings (if charts support them similarly)
+# livenessProbe:
+#   initialDelaySeconds: 30
+#   periodSeconds: 10
+# readinessProbe:
+#   initialDelaySeconds: 5
+#   periodSeconds: 5
+
+# Common environment variables
+env:
+  - name: HARNESS_MANAGED
+    value: "true"
