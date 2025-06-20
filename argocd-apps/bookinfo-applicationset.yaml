@@ -62,8 +62,8 @@ spec:
         path: '{{path}}' # Dynamically set from the generator's 'path' field
 
         kustomize:
-          # Kustomize build options will be applied globally via argocd-cm.
-          # The ApplicationSet CRD version in this cluster does not support buildOptions here.
+          # Kustomize build options applied to all generated Applications
+          buildOptions: --enable-helm --load-restrictor LoadRestrictionsNone
           # version: v4.5.7 # Optionally specify a Kustomize version if needed by ArgoCD
 
       destination:
