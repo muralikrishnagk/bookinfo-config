@@ -3,8 +3,8 @@ kind: Kustomization
 
 namespace: bookinfo-dev # Global namespace for this overlay
 
-# Common labels for all resources in this overlay
-commonLabels:
+# Use annotations instead of labels to avoid deployment selector immutability issues
+commonAnnotations:
   environment: dev
   app.kubernetes.io/instance: bookinfo-dev
   testing: "true"
