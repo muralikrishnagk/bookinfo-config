@@ -9,3 +9,4 @@ resources:
 commonLabels:
   environment: dev
   app.kubernetes.io/instance: bookinfo-dev
+  testing: "true"
