@@ -4,7 +4,7 @@
 commonLabels:
   harness.io/managed-by: harness
   harness.io/service: bookinfo
-  harness.io/traceable: true
+  harness.io/traceable: "true"
 
 image:
   pullPolicy: IfNotPresent
