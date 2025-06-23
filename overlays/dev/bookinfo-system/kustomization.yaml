@@ -3,6 +3,12 @@ kind: Kustomization
 
 namespace: bookinfo-dev # Global namespace for this overlay
 
+# Common labels for all resources in this overlay
+commonLabels:
+  environment: dev
+  app.kubernetes.io/instance: bookinfo-dev
+  testing: "true"
+
 resources:
   - ../../../base/services  # Base configuration with global-values.yaml
 
