@@ -3,7 +3,7 @@
 
 image:
   repository: localhost:5000/bookinfo-service
-  tag: v1.0.2
+  tag: v1.0.3
   pullPolicy: IfNotPresent # Or Always if using 'latest' or frequently changing tags
 
 service:
