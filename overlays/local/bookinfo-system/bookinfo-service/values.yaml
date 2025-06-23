@@ -1,0 +1,24 @@
+replicaCount: 2
+image:
+  repository: localhost:5000/bookinfo-service
+  tag: "dev"
+  pullPolicy: Always
+service:
+  type: ClusterIP # Assuming type might still vary or want to be explicit
+  # port: 80 is now inherited from the chart's default values.yaml
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+env:
+  - name: ENVIRONMENT
+    value: "dev"
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+readinessProbe:
+  initialDelaySeconds: 5
+  periodSeconds: 5

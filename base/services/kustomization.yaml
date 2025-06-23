@@ -1,19 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-# This kustomization generates a ConfigMap from global-values.yaml
-# which can then be referenced by overlays.
+# Base configuration for bookinfo services
+# The global-values.yaml file in this directory is referenced directly by overlays
+# using the valuesFile parameter in their helmCharts sections
 
+# Generate a ConfigMap from the global-values.yaml file
+# This ensures Kustomize includes the file in the build context
 configMapGenerator:
 - name: global-helm-values
-  # The namespace for this ConfigMap should ideally be a common one, or the one
-  # where your ArgoCD/Kustomize controller operates if it needs to read it directly.
-  # Alternatively, overlays can import it into their own namespace if needed,
-  # though 'valuesFrom' usually handles cross-namespace if RBAC allows.
-  # For simplicity, let's assume it will be used by overlays in their own namespace.
-  # If overlays target different namespaces, this ConfigMap might need to be created
-  # in each of those, or Kustomize needs to handle namespacing it appropriately.
-  # Let's omit namespace here and let the overlay's namespace apply.
   files:
-  - global-values.yaml # Assumes global-values.yaml is in the same directory (base/services/)
-  # The key in the ConfigMap data will be 'global-values.yaml' by default.
+  - global-values.yaml
+
+resources: []  # No resources to include directly, just providing the global-values.yaml
