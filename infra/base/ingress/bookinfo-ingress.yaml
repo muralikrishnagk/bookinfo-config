@@ -16,6 +16,11 @@ spec:
   - host: bookinfo.example.com # Patched by overlay
     http:
       paths:
+      # API service path with rewrite rule
+      # Examples: 
+      # - /service/api/info -> /api/info on bookinfo-service
+      # - /service/health -> /health on bookinfo-service
+      # - /service/readiness -> /readiness on bookinfo-service
       - path: /service(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
@@ -23,39 +28,16 @@ spec:
             name: bookinfo-service-bookinfo-service
             port:
               number: 80
+      
+      # Processor service path with rewrite rule
+      # Examples:
+      # - /processor/api/info -> /api/info on bookinfo-processor
+      # - /processor/health -> /health on bookinfo-processor
+      # - /processor/api/process -> /api/process on bookinfo-processor
       - path: /processor(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
           service:
             name: bookinfo-processor-bookinfo-processor
-            port:
-              number: 80
-      # New API endpoints for direct access
-      - path: /api/info
-        pathType: Exact
-        backend:
-          service:
-            name: bookinfo-service-bookinfo-service
-            port:
-              number: 80
-      - path: /health
-        pathType: Exact
-        backend:
-          service:
-            name: bookinfo-service-bookinfo-service
-            port:
-              number: 80
-      - path: /readiness
-        pathType: Exact
-        backend:
-          service:
-            name: bookinfo-service-bookinfo-service
-            port:
-              number: 80
-      - path: /liveness
-        pathType: Exact
-        backend:
-          service:
-            name: bookinfo-service-bookinfo-service
             port:
               number: 80
