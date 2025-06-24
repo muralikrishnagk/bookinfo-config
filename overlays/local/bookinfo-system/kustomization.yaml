@@ -10,7 +10,7 @@ helmCharts:
 - name: bookinfo-service
   releaseName: bookinfo-service
   namespace: bookinfo-dev
-  version: 0.1.3
+  version: 0.1.4 # Updated with ConfigMap support
   repo: http://127.0.0.1:8000
   valuesFile: ../../../base/services/global-values.yaml
   additionalValuesFiles:
@@ -19,7 +19,7 @@ helmCharts:
 - name: bookinfo-processor
   releaseName: bookinfo-processor
   namespace: bookinfo-dev
-  version: 0.1.3
+  version: 0.1.4 # Updated with ConfigMap support
   repo: http://127.0.0.1:8000
   valuesFile: ../../../base/services/global-values.yaml
   additionalValuesFiles:
