@@ -1,0 +1,29 @@
+# Global values for all services in production environment
+# These values will be applied to all Helm charts in this overlay
+
+# Common image settings
+image:
+  pullPolicy: IfNotPresent
+  registry: localhost:5000
+
+# Common resource settings for production environment
+resources:
+  requests:
+    cpu: "500m"  # Higher resource allocation for production
+    memory: "512Mi"
+  limits:
+    cpu: "1000m"
+    memory: "1024Mi"
+
+# Common ConfigMap settings that apply to all services in production
+configMap:
+  enabled: true
+  data:
+    ENVIRONMENT: "prod"
+    LOG_LEVEL: "info"
+    ENABLE_METRICS: "true"
+    TRACING_ENABLED: "true"
+    DEV_MODE: "false"
+    API_VERSION: "v2"
+    DEFAULT_TIMEOUT: "20000"
+    HARNESS_URL: "http://harness-prod.io"

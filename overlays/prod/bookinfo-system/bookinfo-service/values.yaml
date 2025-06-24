@@ -1,29 +1,35 @@
 # Production values for bookinfo-service
-# replicaCount: 3
+replicaCount: 3  # Higher replicas for production
 
 image:
   repository: localhost:5000/bookinfo-service
-  tag: v1.0.3
-  pullPolicy: IfNotPresent # Or Always if using 'latest' or frequently changing tags
+  tag: v1.0.3-rc1  # Will be updated to v1.0.3 final in production
+  # pullPolicy is now inherited from global values.yaml
 
 service:
-  type: ClusterIP # Assuming type might still vary or want to be explicit
-  # port: 80 is now inherited from the chart's default values.yaml
+  type: ClusterIP
+  # port: 80 is inherited from the chart's default values.yaml
 
-# ingress: # Ingress is handled by the separate infra component
-#   enabled: false
-
-# resources:
-#   limits:
-#     cpu: 200m
-#     memory: 256Mi
-#   requests:
-#     cpu: 100m
-#     memory: 128Mi
+resources:
+  limits:
+    cpu: "800m"     # Production-specific resource limits
+    memory: "1024Mi"
+  requests:
+    cpu: "400m"
+    memory: "512Mi"
 
 env:
   - name: PORT
     value: "9090"
-  - name: ENVIRONMENT
-    value: "prod"
-  # Add other prod-specific environment variables here
+  # Other environment variables now come from configMap
+
+# ConfigMap settings specific to the service
+configMap:
+  enabled: true
+  data:
+    API_TIMEOUT: "3000"  # Lower timeout for production
+    MAX_CONNECTIONS: "200"  # Higher connection limit for production
+    DB_POOL_SIZE: "20"  # Larger pool size for production
+    LOG_LEVEL: "info"
+    FEATURE_FLAGS: "reviews-enabled,ratings-enabled"
+    SERVICE_ENV: "prod"
