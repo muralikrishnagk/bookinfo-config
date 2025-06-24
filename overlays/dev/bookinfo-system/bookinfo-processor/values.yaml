@@ -13,6 +13,16 @@ resources:
   limits:
     cpu: "200m"
     memory: "256Mi"
+# ConfigMap settings for the processor service
+configMap:
+  enabled: true
+  data:
+    PROCESSOR_MODE: "normal"
+    MAX_THREADS: "12"
+    CACHE_EXPIRY: "600"
+    LOG_LEVEL: "info"
+    PROCESSOR_ENV: "dev"
+
 env:
   - name: ENVIRONMENT
     value: "dev"
