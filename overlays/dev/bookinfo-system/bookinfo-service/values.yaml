@@ -2,7 +2,6 @@ replicaCount: 2
 image:
   repository: localhost:5000/bookinfo-service
   tag: "dev"
-  pullPolicy: Always
 service:
   type: ClusterIP # Assuming type might still vary or want to be explicit
   # port: 80 is now inherited from the chart's default values.yaml
