@@ -20,7 +20,8 @@ helmCharts:
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: ../../../base/services/global-values.yaml
   additionalValuesFiles:
-    - bookinfo-service/values.yaml
+    - ../values.yaml # Global dev overlay values
+    - bookinfo-service/values.yaml # Service-specific values
 
 - name: bookinfo-processor
   releaseName: bookinfo-processor
@@ -29,6 +30,7 @@ helmCharts:
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: ../../../base/services/global-values.yaml
   additionalValuesFiles:
-    - bookinfo-processor/values.yaml
+    - ../values.yaml # Global dev overlay values
+    - bookinfo-processor/values.yaml # Service-specific values
 
 # Patches for imagePullPolicy were here, but now handled by Helm values.

@@ -1,0 +1,51 @@
+# Global values for all services in dev environment
+# These values will be applied to all Helm charts in this overlay
+
+# Common image settings
+image:
+  pullPolicy: Always
+  registry: docker.io  # or your specific registry for dev
+
+# Common resource settings for dev environment
+resources:
+  requests:
+    cpu: "100m"  
+    memory: "128Mi"
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+
+# Common ConfigMap settings that apply to all services
+configMap:
+  enabled: true
+  data:
+    ENVIRONMENT: "dev"
+    LOG_LEVEL: "info"
+    ENABLE_METRICS: "true"
+    TRACING_ENABLED: "true"
+    DEV_MODE: "true"
+
+# Common labels for all resources
+commonLabels:
+  environment: dev
+  tier: microservices
+  managed-by: helm-kustomize
+
+# Monitoring and observability
+prometheus:
+  enabled: true
+  scrapeInterval: "15s"
+
+# Common environment variables
+env:
+  - name: ENV_TYPE
+    value: "development"
+  - name: DEBUG
+    value: "true"
+
+# Service defaults
+service:
+  type: ClusterIP
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"

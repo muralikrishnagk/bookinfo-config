@@ -1,0 +1,52 @@
+# Global values for all services in local environment
+# These values will be applied to all Helm charts in this overlay
+
+# Common image settings
+image:
+  pullPolicy: Always
+  registry: localhost:5000  # Local registry for development
+
+# Common resource settings for local testing environment
+resources:
+  requests:
+    cpu: "50m"  # Lower values for local testing
+    memory: "64Mi"
+  limits:
+    cpu: "100m"
+    memory: "128Mi"
+
+# Common ConfigMap settings that apply to all services in local environment
+configMap:
+  enabled: true
+  data:
+    ENVIRONMENT: "local"
+    LOG_LEVEL: "debug"  # More verbose logging for local development
+    ENABLE_METRICS: "true"
+    TRACING_ENABLED: "true"
+    DEV_MODE: "true"
+    LOCAL_TESTING: "true"
+
+# Common labels for all resources
+commonLabels:
+  environment: local-dev
+  tier: microservices
+  managed-by: helm-kustomize
+
+# Monitoring and observability
+prometheus:
+  enabled: true
+  scrapeInterval: "5s"  # More frequent scraping in local environment
+
+# Common environment variables
+env:
+  - name: ENV_TYPE
+    value: "local"
+  - name: DEBUG
+    value: "true"
+
+# Service defaults
+service:
+  type: ClusterIP
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
