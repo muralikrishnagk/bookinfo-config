@@ -25,3 +25,13 @@ env:
   - name: PORT
     value: "9090"
   # Add other qa-specific environment variables here
+
+# ConfigMap settings for the processor service
+configMap:
+  enabled: true
+  data:
+    PROCESSOR_MODE: "normal"
+    MAX_THREADS: "4"
+    CACHE_EXPIRY: "120"
+    LOG_LEVEL: "info"
+    PROCESSOR_ENV: "qa"
