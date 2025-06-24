@@ -3,7 +3,7 @@ replicaCount: 3  # Higher replicas for production
 
 image:
   repository: localhost:5000/bookinfo-processor
-  tag: v1.0.3-rc1  # Will be updated to v1.0.3 final in production
+  tag: v1.0.3  # Final production release tag
   # pullPolicy is now inherited from global values.yaml
 
 service:
