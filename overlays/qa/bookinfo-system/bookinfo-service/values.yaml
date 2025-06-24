@@ -3,7 +3,7 @@ replicaCount: 2
 
 image:
   repository: localhost:5000/bookinfo-service
-  tag: v1.0.2-rc2
+  tag: v1.0.3-rc1
   pullPolicy: IfNotPresent
 
 service:
@@ -24,6 +24,4 @@ resources:
 env:
   - name: PORT
     value: "9090"
-  - name: ENVIRONMENT
-    value: "qa"
   # Add other qa-specific environment variables here

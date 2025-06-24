@@ -1,0 +1,29 @@
+# Global values for all services in QA environment
+# These values will be applied to all Helm charts in this overlay
+
+# Common image settings
+image:
+  pullPolicy: IfNotPresent
+  registry: localhost:5000  # Using local registry for QA
+
+# Common resource settings for QA environment
+resources:
+  requests:
+    cpu: "200m"  # Higher resources for QA testing
+    memory: "256Mi"
+  limits:
+    cpu: "400m"
+    memory: "512Mi"
+
+# Common ConfigMap settings that apply to all services in QA
+configMap:
+  enabled: true
+  data:
+    ENVIRONMENT: "qa"
+    LOG_LEVEL: "info"
+    ENABLE_METRICS: "true"
+    TRACING_ENABLED: "true"
+    DEV_MODE: "false"  # Not in dev mode for QA
+    API_VERSION: "v2"
+    DEFAULT_TIMEOUT: "25000"  # Different timeout for QA
+    HARNESS_URL: "http://harness-qa.io"
