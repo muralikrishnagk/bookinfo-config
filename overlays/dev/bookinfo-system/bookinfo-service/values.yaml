@@ -23,9 +23,6 @@ configMap:
     FEATURE_FLAGS: "reviews-enabled,ratings-enabled"
     SERVICE_ENV: "dev"
 
-env:
-  - name: ENVIRONMENT
-    value: "dev"
 livenessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10

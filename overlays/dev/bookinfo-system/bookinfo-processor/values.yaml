@@ -23,11 +23,6 @@ configMap:
     LOG_LEVEL: "info"
     PROCESSOR_ENV: "dev"
 
-env:
-  - name: ENVIRONMENT
-    value: "dev"
-  - name: EXPERIMENT
-    value: true
 livenessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10
