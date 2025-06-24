@@ -25,6 +25,9 @@ configMap:
     TRACING_ENABLED: "true"
     DEV_MODE: "true"
     LOCAL_TESTING: "true"
+    API_VERSION: "v2"
+    DEFAULT_TIMEOUT: "15000"  # Different timeout for local testing
+    HARNESS_URL: "http://localhost:8080"  # Local Harness URL
 
 # Common labels for all resources
 commonLabels:

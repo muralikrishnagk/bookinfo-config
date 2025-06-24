@@ -2,7 +2,7 @@ replicaCount: 2
 image:
   repository: localhost:5000/bookinfo-service
   tag: "dev"
-  pullPolicy: Always
+  # pullPolicy now managed in global values.yaml
 service:
   type: ClusterIP # Assuming type might still vary or want to be explicit
   # port: 80 is now inherited from the chart's default values.yaml
@@ -25,9 +25,7 @@ configMap:
     FEATURE_FLAGS: "reviews-enabled,ratings-disabled"
     SERVICE_ENV: "local"
 
-env:
-  - name: ENVIRONMENT
-    value: "dev"
+# Environment variables now managed in global values.yaml via ConfigMap
 livenessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10

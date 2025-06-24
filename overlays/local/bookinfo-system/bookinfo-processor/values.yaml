@@ -23,11 +23,8 @@ configMap:
     CACHE_EXPIRY: "300"
     LOG_LEVEL: "debug"
     PROCESSOR_ENV: "local"
-env:
-  - name: ENVIRONMENT
-    value: "dev"
-  - name: EXPERIMENT
-    value: true
+# Environment variables now managed in global values.yaml via ConfigMap
+# Any local service-specific env vars should be added here
 livenessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10
