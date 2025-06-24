@@ -1,29 +1,34 @@
 # Production values for bookinfo-processor
-# replicaCount: 3
+replicaCount: 3  # Higher replicas for production
 
 image:
   repository: localhost:5000/bookinfo-processor
-  tag: v1.0.3
-  pullPolicy: IfNotPresent # Or Always if using 'latest' or frequently changing tags
+  tag: v1.0.3-rc1  # Will be updated to v1.0.3 final in production
+  # pullPolicy is now inherited from global values.yaml
 
 service:
-  type: ClusterIP # Assuming type might still vary or want to be explicit
-  # port: 80 is now inherited from the chart's default values.yaml
+  type: ClusterIP
+  # port: 80 is inherited from the chart's default values.yaml
 
-# ingress: # Ingress is handled by the separate infra component
-#   enabled: false
-
-# resources:
-#   limits:
-#     cpu: 200m
-#     memory: 256Mi
-#   requests:
-#     cpu: 100m
-#     memory: 128Mi
+resources:
+  limits:
+    cpu: "800m"     # Production-specific resource limits
+    memory: "1024Mi"
+  requests:
+    cpu: "400m"
+    memory: "512Mi"
 
 env:
   - name: PORT
     value: "9090"
-  - name: ENVIRONMENT
-    value: "prod"
-  # Add other prod-specific environment variables here
+  # Other environment variables now come from configMap
+
+# ConfigMap settings specific to the processor
+configMap:
+  enabled: true
+  data:
+    PROCESSOR_MODE: "high-performance"  # Production mode
+    MAX_THREADS: "16"  # Higher thread count for production
+    CACHE_EXPIRY: "300"  # Longer cache expiry for production
+    LOG_LEVEL: "info"
+    PROCESSOR_ENV: "prod"
