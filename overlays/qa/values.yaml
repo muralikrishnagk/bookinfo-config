@@ -1,6 +1,10 @@
 # Global values for all services in QA environment
 # These values will be applied to all Helm charts in this overlay
 
+# Override common labels from base
+commonLabels:
+  environment: qa
+
 # Common image settings
 image:
   pullPolicy: IfNotPresent

@@ -1,6 +1,10 @@
 # Global values for all services in production environment
 # These values will be applied to all Helm charts in this overlay
 
+# Override common labels from base
+commonLabels:
+  environment: prod
+
 # Common image settings
 image:
   pullPolicy: IfNotPresent
