@@ -16,7 +16,7 @@ helmCharts:
 - name: bookinfo-service
   releaseName: bookinfo-service
   namespace: bookinfo-dev
-  version: 0.1.4 # Updated with ConfigMap support
+  version: 1.0.4-SNAPSHOT # Updated with ConfigMap support
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: ../../../base/services/global-values.yaml
   additionalValuesFiles:
