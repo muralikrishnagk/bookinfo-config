@@ -9,7 +9,7 @@ helmCharts:
 - name: bookinfo-service
   releaseName: bookinfo-service
   namespace: bookinfo-qa
-  version: 0.1.4 # Updated with ConfigMap support for API standardization
+  version: 1.0.4-rc1 # Updated with ConfigMap support for API standardization
   repo: https://muralikrishnagk.github.io/bookinfo-charts
   valuesFile: ../../../base/services/global-values.yaml
   additionalValuesFiles:
