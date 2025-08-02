@@ -2,6 +2,7 @@
 # These values will be applied to all Helm charts in this overlay
 
 # Common image settings
+replicaCount: 1
 image:
   pullPolicy: Always
   registry: docker.io  # or your specific registry for dev

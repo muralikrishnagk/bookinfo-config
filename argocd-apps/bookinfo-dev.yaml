@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-bookinfo-dev
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: helm-bookinfo-dev
+
+  # Define multiple sources: one for the chart, one for the values
+  sources:
+    # Source 1: The Helm chart from GAR
+    - repoURL: https://muralikrishnagk.github.io/bookinfo-charts
+      chart: bookinfo-service
+      targetRevision: 0.1.4 # Pin to a specific chart version
+      helm:
+        # The key is to reference the other source for value files
+        valueFiles:
+          # '$values' refers to the source with ref: 'values' below
+          - $values/overlays/dev/values.yaml
+          - $values/overlays/dev/bookinfo-system/bookinfo-service/values.yaml
+    - repoURL: https://muralikrishnagk.github.io/bookinfo-charts
+      chart: bookinfo-processor
+      targetRevision: 0.1.4 # Pin to a specific chart version
+      helm:
+        # The key is to reference the other source for value files
+        valueFiles:
+          # '$values' refers to the source with ref: 'values' below
+          - $values/overlays/dev/values.yaml
+          - $values/overlays/dev/bookinfo-system/bookinfo-processor/values.yaml
+    - repoURL: https://github.com/muralikrishnagk/bookinfo-config.git
+      targetRevision: main
+      ref: values
